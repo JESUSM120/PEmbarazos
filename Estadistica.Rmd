@@ -1,0 +1,66 @@
+
+```{r}
+library(readr)
+Embarazo_adolecente <- read_csv("Documentos/R/25-Abril/Embarazo adolecente.csv")
+View(Embarazo_adolecente)
+```
+#Promedio de las edades con respecto a la edad del primer hijo y el municio de procedencia
+```{r}
+# Calcular la edad promedio del primer hijo por municipio
+edad_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, by = list(Embarazo_adolecente$Municipio), FUN = mean)
+
+# Renombrar las columnas
+colnames(edad_primer_hijo) <- c("Municipio", "Edad_promedio_primer_hijo")
+
+# Mostrar el resultado
+print(edad_primer_hijo)
+View(edad_primer_hijo)
+
+```
+# Edad minima
+```{r}
+# Calcular la edad mínima del primer hijo por municipio
+edad_minima_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, by = list(Embarazo_adolecente$Municipio), FUN = min)
+
+# Renombrar las columnas
+colnames(edad_minima_primer_hijo) <- c("Municipio", "Edad_minima_primer_hijo")
+
+# Mostrar el resultado
+print(edad_minima_primer_hijo)
+View(edad_minima_primer_hijo)
+```
+#     Calcular la moda
+```{r}
+# Función para calcular la moda
+get_mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+# Calcular la moda de la edad del primer hijo por municipio
+moda_edad_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, 
+                                    by = list(Embarazo_adolecente$Municipio), 
+                                    FUN = function(x) get_mode(x))
+
+# Renombrar las columnas
+colnames(moda_edad_primer_hijo) <- c("Municipio", "Moda_edad_primer_hijo")
+
+# Mostrar el resultado
+print(moda_edad_primer_hijo)
+View(moda_edad_primer_hijo)
+```
+# Edad maxima
+```{r}
+# Calcular la edad más alta del primer hijo por municipio
+max_edad_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, 
+                                  by = list(Embarazo_adolecente$Municipio), 
+                                  FUN = max)
+
+# Renombrar las columnas
+colnames(max_edad_primer_hijo) <- c("Municipio", "Edad_maxima_primer_hijo")
+
+# Mostrar el resultado
+print(max_edad_primer_hijo)
+View(max_edad_primer_hijo)
+```
+
