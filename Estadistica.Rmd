@@ -7,27 +7,65 @@ View(Embarazo_adolecente)
 #Promedio de las edades con respecto a la edad del primer hijo y el municio de procedencia
 ```{r}
 # Calcular la edad promedio del primer hijo por municipio
-edad_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, by = list(Embarazo_adolecente$Municipio), FUN = mean)
+edad_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, 
+                              by = list(Embarazo_adolecente$Municipio), 
+                              FUN = mean)
 
 # Renombrar las columnas
 colnames(edad_primer_hijo) <- c("Municipio", "Edad_promedio_primer_hijo")
+
+# Ordenar los datos por la edad promedio en orden ascendente (de menor a mayor)
+edad_primer_hijo <- edad_primer_hijo[order(edad_primer_hijo$Edad_promedio_primer_hijo), ]
 
 # Mostrar el resultado
 print(edad_primer_hijo)
 View(edad_primer_hijo)
 
+# Crear el gráfico de barras de la edad promedio del primer hijo por municipio
+barplot(edad_primer_hijo$Edad_promedio_primer_hijo,
+        names.arg = edad_primer_hijo$Municipio,
+        main = "Edad Promedio del Primer Hijo por Municipio",
+        xlab = "Edad Promedio del Primer Hijo",
+        ylab = "Municipio",
+        col = "blue",
+        border = "black",
+        las = 1,   # Mantener los nombres de los municipios en posición horizontal
+        cex.names = 0.7,  # Ajustar el tamaño de las etiquetas del eje Y
+        horiz = TRUE)  # Hacer el gráfico de barras horizontal
+
+
 ```
+
 # Edad minima
 ```{r}
 # Calcular la edad mínima del primer hijo por municipio
-edad_minima_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, by = list(Embarazo_adolecente$Municipio), FUN = min)
+edad_minima_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, 
+                                     by = list(Embarazo_adolecente$Municipio), 
+                                     FUN = min)
 
 # Renombrar las columnas
 colnames(edad_minima_primer_hijo) <- c("Municipio", "Edad_minima_primer_hijo")
 
+# Ordenar los datos por la edad mínima en orden ascendente (de menor a mayor)
+edad_minima_primer_hijo <- edad_minima_primer_hijo[order(edad_minima_primer_hijo$Edad_minima_primer_hijo), ]
+
 # Mostrar el resultado
 print(edad_minima_primer_hijo)
 View(edad_minima_primer_hijo)
+
+# Crear el gráfico de barras de la edad mínima del primer hijo por municipio
+barplot(edad_minima_primer_hijo$Edad_minima_primer_hijo,
+        names.arg = edad_minima_primer_hijo$Municipio,
+        main = "Edad Mínima del Primer Hijo por Municipio",
+        xlab = "Edad Mínima del Primer Hijo",
+        ylab = "Municipio",
+        col = "blue",
+        border = "black",
+        las = 1,   # Mantener los nombres de los municipios en posición horizontal
+        cex.names = 0.7,  # Ajustar el tamaño de las etiquetas del eje Y
+        horiz = TRUE)  # Hacer el gráfico de barras horizontal
+
+
 ```
 #     Calcular la moda
 ```{r}
@@ -39,15 +77,31 @@ get_mode <- function(x) {
 
 # Calcular la moda de la edad del primer hijo por municipio
 moda_edad_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, 
-                                    by = list(Embarazo_adolecente$Municipio), 
-                                    FUN = function(x) get_mode(x))
+                                   by = list(Embarazo_adolecente$Municipio), 
+                                   FUN = get_mode)
 
 # Renombrar las columnas
 colnames(moda_edad_primer_hijo) <- c("Municipio", "Moda_edad_primer_hijo")
 
+# Ordenar los datos por la moda de la edad en orden ascendente (de menor a mayor)
+moda_edad_primer_hijo <- moda_edad_primer_hijo[order(moda_edad_primer_hijo$Moda_edad_primer_hijo), ]
+
 # Mostrar el resultado
 print(moda_edad_primer_hijo)
 View(moda_edad_primer_hijo)
+
+# Crear el gráfico de barras de la moda de la edad del primer hijo por municipio
+barplot(moda_edad_primer_hijo$Moda_edad_primer_hijo,
+        names.arg = moda_edad_primer_hijo$Municipio,
+        main = "Moda de la Edad del Primer Hijo por Municipio",
+        xlab = "Moda de la Edad del Primer Hijo",
+        ylab = "Municipio",
+        col = "blue",
+        border = "black",
+        las = 1,   # Mantener los nombres de los municipios en posición horizontal
+        cex.names = 0.7,  # Ajustar el tamaño de las etiquetas del eje Y
+        horiz = TRUE)  # Hacer el gráfico de barras horizontal
+
 ```
 # Edad maxima
 ```{r}
@@ -59,8 +113,41 @@ max_edad_primer_hijo <- aggregate(Embarazo_adolecente$`Edad a la que tuvo su pri
 # Renombrar las columnas
 colnames(max_edad_primer_hijo) <- c("Municipio", "Edad_maxima_primer_hijo")
 
+# Ordenar los datos por la edad máxima en orden ascendente (de menor a mayor)
+max_edad_primer_hijo <- max_edad_primer_hijo[order(max_edad_primer_hijo$Edad_maxima_primer_hijo), ]
+
 # Mostrar el resultado
 print(max_edad_primer_hijo)
 View(max_edad_primer_hijo)
+
+# Crear el gráfico de barras horizontal de la edad máxima del primer hijo por municipio
+barplot(max_edad_primer_hijo$Edad_maxima_primer_hijo,
+        names.arg = max_edad_primer_hijo$Municipio,
+        main = "Edad Máxima del Primer Hijo por Municipio",
+        xlab = "Edad Máxima del Primer Hijo",
+        ylab = "Municipio",
+        col = "blue",
+        border = "black",
+        las = 1,   # Mantener los nombres de los municipios horizontales
+        cex.names = 0.7,  # Ajustar el tamaño de las etiquetas del eje Y
+        horiz = TRUE)  # Hacer el gráfico de barras horizontal
+
+```
+
+```{r}
+boxplot(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, 
+main= "Bloxplot Edad a la que tuvo su primer hijo ", ylab="Edades")
+```
+```{r}
+boxplot(Embarazo_adolecente$`Edad actual`, 
+main= "Bloxplot edad actual ", ylab="Edades")
+```
+```{r}
+plot(Embarazo_adolecente$`Edad a la que tuvo su primer hijo`, 
+main= "Bloxplot edad a la que tuvo su primer hijo ", ylab="Edades")
+```
+```{r}
+plot(Embarazo_adolecente$`Edad actual`, 
+main= "Bloxplot edad actual ", ylab="Edades")
 ```
 
